@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  fleetwise_database:
+    image: postgres:15.3-alpine3.18
+    env_file:
+      - .env.database
+    ports:
+      - 5432:5432
+    volumes:
+      - data:/var/lib/production_database/data
+  
+  fleetwise_api:
+    image: dinesheth/fleetwise_api:latest
+    env_file:
+      - .env.api
+
+  fleetwise_webapp:
+    image: dinesheth/fleetwise:latest
+    ports:
+      - 3000:3000
+
+
+volumes:
+  data:
